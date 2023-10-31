@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.debilwillcry.AppController">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" prefHeight="20.0" prefWidth="101.0" text="Files on the server:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+            <ListView fx:id="filesListView" layoutX="15.0" layoutY="31.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="35.0" />
+            <Button fx:id="uploadButton" layoutX="15.0" layoutY="240.0" mnemonicParsing="false" text="Upload" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="240.0" />
+            <Button fx:id="downloadButton" layoutX="80.0" layoutY="240.0" mnemonicParsing="false" text="Download" AnchorPane.leftAnchor="79.66" AnchorPane.topAnchor="240.0" />
+            <Button fx:id="deleteButton" layoutX="160.0" layoutY="240.0" mnemonicParsing="false" text="Delete" AnchorPane.leftAnchor="160.32" AnchorPane.topAnchor="240.0" />
+            <Label layoutX="16.0" layoutY="265.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="63.0" text="Decrypt file:" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="275.0" />
+            <TextField fx:id="fileTextField" layoutX="16.0" layoutY="300.0" prefHeight="25.0" prefWidth="247.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="300.0" />
+            <Button fx:id="loadFileButton" layoutX="245.0" layoutY="300.0" mnemonicParsing="false" text="Load File" AnchorPane.rightAnchor="15.0" />
+            <TextField fx:id="keyTextField" layoutX="15.0" layoutY="325.0" prefHeight="25.0" prefWidth="247.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="335.0" />
+            <Button fx:id="loadKeyButton" layoutX="241.0" layoutY="335.0" mnemonicParsing="false" text="Load Key" />
+            <Button fx:id="decryptButton" layoutX="17.0" layoutY="370.0" mnemonicParsing="false" text="Decrypt" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="370.0" />
+            <ChoiceBox fx:id="modeChoiceBox" layoutX="91.0" layoutY="370.0" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="370.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
