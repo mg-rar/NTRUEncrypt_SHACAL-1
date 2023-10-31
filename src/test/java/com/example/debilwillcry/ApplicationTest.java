@@ -167,7 +167,7 @@ class ApplicationTest {
         int blocksLen = keyPadded.length / 30;
         for (int i = 0; i < blocksLen; ++i) {
             byte[] block = Arrays.copyOfRange(keyPadded, i * 30, (i + 1) * 30);
-            for (byte b : ntru.encryption(block))
+            for (byte b : ntru.encrypt(block))
                 keyEnc.add(b);
         }
         byte[] keyEncT = new byte[keyEnc.size()];
@@ -178,7 +178,7 @@ class ApplicationTest {
         List<Byte> keyDec = new ArrayList<>();
         for (int i = 0; i < blocksLen; ++i) {
             byte[] block = Arrays.copyOfRange(keyEncT, i * 30, (i + 1) * 30);
-            System.arraycopy(ntru.decryption(block), 0, keyDec, i * 30, 30);
+            System.arraycopy(ntru.decrypt(block), 0, keyDec, i * 30, 30);
         }
         byte[] keyDecT = new byte[keyDec.size()];
         for (int i = 0; i < keyDec.size(); i++) {

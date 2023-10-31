@@ -73,12 +73,6 @@ public class ClientHandler implements Runnable {
 
 
     private void uploadFile(String fileName) throws IOException {
-        /* Протокол при скачивании клиентом файла:
-         * 1. (S -> C) String - публичный ключ NTRU
-         * 2. (C -> S) byte[80] - зашифрованный ключ SHACAL-1
-         * 3. (C -> S) int n + byte[n] - зашифрованный файл
-         * */
-
         byte[] key = NTRUEncrypt.receiveSymmetricKey(inStream, outStream);
         Files.write(dir.resolve(fileName + "_key"), key);
         byte[] file = receiveFile();
@@ -86,13 +80,6 @@ public class ClientHandler implements Runnable {
     }
 
     private void downloadFile(String fileName) throws IOException {
-        /* Протокол при скачивании клиентом файла:
-         * 1. (C -> S) String - публичный ключ NTRU
-         * 2. (S -> C) byte[90] - зашифрованный ключ SHACAL-1
-         * 3. (S -> C) int n + byte[n] - зашифрованный файл
-         * Завершение коммуникаций
-         * */
-
         byte[] key = Files.readAllBytes(dir.resolve(fileName + "_key"));
         NTRUEncrypt.sendSymmetricKey(inStream, outStream, key);
         byte[] file = Files.readAllBytes(dir.resolve(fileName));
@@ -100,11 +87,6 @@ public class ClientHandler implements Runnable {
     }
 
     private void deleteFile(String filename) throws IOException {
-        /* Протокол при удалении файла:
-         * 1. (S -> C) "success" / "fail"
-         * Завершение коммуникаций
-         * */
-
         try {
             Files.deleteIfExists(Path.of(server.dir + "//" + filename));
             Files.deleteIfExists(Path.of(server.dir + "//" + filename + "_key"));
@@ -115,15 +97,6 @@ public class ClientHandler implements Runnable {
     }
 
     private void getFileList() throws IOException {
-        /* Протокол при получении files:
-         * 1. (S -> C) "success" / "fail"
-         * 1.1 "fail" -> завершение коммуникаций обеими сторонами
-         * 1.2 "success" -> продолжение коммуникаций
-         * 2. (S -> C) int n- количество файлов
-         * 3. (S -> C) String[n] - имена файлов
-         * Завершение коммуникаций
-         * */
-
         File[] files = new File(server.dir).listFiles();
         if (files == null) {
             outStream.writeUTF("fail");

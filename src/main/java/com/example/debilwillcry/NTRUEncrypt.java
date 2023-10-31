@@ -80,7 +80,7 @@ public class NTRUEncrypt {
         out.writeInt(blocksLen);
         for (int i = 0; i < blocksLen; ++i) {
             byte[] block = Arrays.copyOfRange(keyPadded, i * DEC_BLOCK_SIZE, (i + 1) * DEC_BLOCK_SIZE);
-            out.write(ntru.encryption(block));
+            out.write(ntru.encrypt(block));
         }
     }
 
@@ -90,13 +90,13 @@ public class NTRUEncrypt {
         int blocksLen = in.readInt();
         byte[] keyDec = new byte[blocksLen * DEC_BLOCK_SIZE];
         for (int i = 0; i < blocksLen; ++i) {
-            byte[] blockDec = ntru.decryption(in.readNBytes(ENC_BLOCK_SIZE));
+            byte[] blockDec = ntru.decrypt(in.readNBytes(ENC_BLOCK_SIZE));
             System.arraycopy(blockDec, 0, keyDec, i * DEC_BLOCK_SIZE, DEC_BLOCK_SIZE);
         }
         return Mode.removePadding(keyDec);
     }
 
-    public byte[] encryption(byte[] bytes) {
+    public byte[] encrypt(byte[] bytes) {
         if (h == null)
             throw new RuntimeException("no key provided");
         PolynomialModQN r = PolynomialModQN.smallPolynom(Constants.DR, Constants.DR);
@@ -106,7 +106,7 @@ public class NTRUEncrypt {
         return polynomialToByteArray(e);
     }
 
-    public byte[] decryption(byte[] bytes) {
+    public byte[] decrypt(byte[] bytes) {
         if (f == null || fP == null)
             throw new RuntimeException("no decryption key available");
         PolynomialModQN e = byteArrayToPolynomial(bytes);

@@ -10,15 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class FileHandler {
-    public static Optional<List<byte[]>> read(String path) {
-        try {
-            byte[] name = path.getBytes();
-            byte[] content = Files.readAllBytes(Paths.get(path));
-            return Optional.of(List.of(name, content));
-        } catch (IOException e) {
-            return Optional.empty();
-        }
-    }
 
     public static void write(String filepath, byte[] content, String name) {
         Path path = Paths.get(filepath);

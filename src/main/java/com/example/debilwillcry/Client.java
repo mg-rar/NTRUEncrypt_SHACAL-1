@@ -98,11 +98,6 @@ public class Client {
 
 
     public void uploadFile(String fileName, String mode) throws IOException {
-        /* Протокол при скачивании клиентом файла:
-         * 1. (S -> C) String - публичный ключ NTRU
-         * 2. (C -> S) byte[80] - зашифрованный ключ SHACAL-1
-         * 3. (C -> S) int n + byte[n] - зашифрованный файл
-         * */
         logger.info("requesting upload");
         Path path = Path.of(fileName);
         outStream.writeUTF("upload " + path.getFileName());
@@ -114,12 +109,6 @@ public class Client {
 
 
     public void downloadFile(String fileName, String path) throws IOException {
-        /* Протокол при скачивании клиентом файла:
-         * 1. (C -> S) String - публичный ключ NTRU
-         * 2. (S -> C) byte[80] - зашифрованный ключ SHACAL-1
-         * 3. (S -> C) int n + byte[n] - зашифрованный файл
-         * Завершение коммуникаций
-         * */
         logger.info("requesting download");
         Path path1 = Path.of(path);
         outStream.writeUTF("download " + fileName);
@@ -131,24 +120,12 @@ public class Client {
 
 
     public void deleteFile(String fileName) throws IOException {
-        /* Протокол при удалении файла:
-         * 1. (S -> C) "success" / "fail"
-         * Завершение коммуникаций
-         * */
         outStream.writeUTF("delete " + fileName);
         inStream.readUTF();
     }
 
 
     public List<String> getFileList() throws IOException {
-        /* Протокол при получении files:
-         * 1. (S -> C) "success" / "fail"
-         * 1.1 "fail" -> завершение коммуникаций обеими сторонами
-         * 1.2 "success" -> продолжение коммуникаций
-         * 2. (S -> C) int n- количество файлов
-         * 3. (S -> C) String[n] - имена файлов
-         * Завершение коммуникаций
-         * */
         logger.info("requesting file list");
         outStream.writeUTF("files");
         List<String> files = new ArrayList<>();

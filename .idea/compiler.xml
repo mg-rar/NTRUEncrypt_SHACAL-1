@@ -9,5 +9,8 @@
         <module name="NTRU-SHACAL" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="debilwillcry" target="18" />
+    </bytecodeTargetLevel>
   </component>
 </project>
